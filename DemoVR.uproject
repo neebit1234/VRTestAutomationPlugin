@@ -60,6 +60,10 @@
 		{
 			"Name": "DaedalicTestAutomationPlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "VRTestAutomationPlugin",
+			"Enabled": false
 		}
 	],
 	"TargetPlatforms": [
