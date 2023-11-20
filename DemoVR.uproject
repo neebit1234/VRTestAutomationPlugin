@@ -3,6 +3,13 @@
 	"EngineAssociation": "{965293CE-4663-89B8-5F8D-43BEBA86CAF6}",
 	"Category": "",
 	"Description": "",
+	"Modules": [
+		{
+			"Name": "DemoVR",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "XRVisualization",
@@ -49,6 +56,10 @@
 				"Win64",
 				"Android"
 			]
+		},
+		{
+			"Name": "DaedalicTestAutomationPlugin",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
