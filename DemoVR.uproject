@@ -62,8 +62,8 @@
 			"Enabled": true
 		},
 		{
-			"Name": "VRTestAutomationPlugin",
-			"Enabled": false
+			"Name": "EditorTests",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
