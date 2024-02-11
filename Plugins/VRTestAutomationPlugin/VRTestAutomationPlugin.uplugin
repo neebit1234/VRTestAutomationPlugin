@@ -3,10 +3,10 @@
 	"Version": 1,
 	"VersionName": "1.0",
 	"FriendlyName": "VRTestAutomationPlugin",
-	"Description": "Supporting VR testing with the Daedalic Test Automation PLugin",
+	"Description": "Supports VR testing with Daedalic Test Automation Plugin",
 	"Category": "Other",
 	"CreatedBy": "Joel Hunt",
-	"CreatedByURL": "https://neebit1234.github.io",
+	"CreatedByURL": "",
 	"DocsURL": "",
 	"MarketplaceURL": "",
 	"SupportURL": "",
@@ -19,6 +19,12 @@
 			"Name": "VRTestAutomationPlugin",
 			"Type": "Runtime",
 			"LoadingPhase": "PreLoadingScreen"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "DaedalicTestAutomationPlugin",
+			"Enabled": true
 		}
 	]
 }
