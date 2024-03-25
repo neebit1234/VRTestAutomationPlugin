@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SceneComponent.h"
+#include "MotionControllerComponent.h"
 #include "VRTestWaypoint.generated.h"
 
 //class AVRPawn;
@@ -18,13 +20,13 @@ public:
 	AVRTestWaypoint();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
-	FVector HeadsetPosition;
+	USceneComponent* Headset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
-	FVector LeftControllerPosition;
+	USceneComponent* LeftControllerComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
-	FVector RightControllerPosition;
+	USceneComponent* RightControllerComponent;
 
 	UFUNCTION(BlueprintCallable, Category = "VR Waypoint")
 	void ApplyWaypointToVRPawn(APawn* VRPawn);

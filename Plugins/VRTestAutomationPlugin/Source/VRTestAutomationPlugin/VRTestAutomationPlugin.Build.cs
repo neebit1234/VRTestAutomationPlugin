@@ -26,6 +26,10 @@ public class VRTestAutomationPlugin : ModuleRules
 			new string[]
 			{
 				"Core",
+				"CoreUObject",
+				"Engine",
+				"InputCore",
+				"HeadMountedDisplay",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
