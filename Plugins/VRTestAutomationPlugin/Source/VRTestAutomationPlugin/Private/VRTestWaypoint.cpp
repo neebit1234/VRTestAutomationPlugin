@@ -10,17 +10,48 @@ AVRTestWaypoint::AVRTestWaypoint()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Create headset as root component
+	// Create a root component for in world placement
+	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	RootComponent = Root;
+
+	// Create headset as component of root
 	Headset = CreateDefaultSubobject<USceneComponent>(TEXT("Headset"));
-	RootComponent = Headset;
+	Headset->AttachToComponent(Root, FAttachmentTransformRules::KeepRelativeTransform);
 
 	// Create the motion controller components
 	LeftControllerComponent = CreateDefaultSubobject<USceneComponent>(TEXT("LeftControllerComponent"));
 	RightControllerComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RightControllerComponent"));
 
-	// Attach the motion controller component to the root component or any other component
-	LeftControllerComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	RightControllerComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	// Attach the motion controller components to the headset component
+	LeftControllerComponent->AttachToComponent(Headset, FAttachmentTransformRules::KeepRelativeTransform);
+	RightControllerComponent->AttachToComponent(Headset, FAttachmentTransformRules::KeepRelativeTransform);
+
+	// Create Static mesh for headset
+	UStaticMeshComponent* HeadsetMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeadsetCube"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadsetMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> HeadsetMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+	if (HeadsetMeshAsset.Succeeded()) { HeadsetMesh->SetStaticMesh(HeadsetMeshAsset.Object); }
+	if (HeadsetMaterialAsset.Succeeded()) { HeadsetMesh->SetMaterial(0, HeadsetMaterialAsset.Object); }
+
+	// Create Static mesh for left controller
+	UStaticMeshComponent* LControllerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LControllerMesh"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> LControllerMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> LControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+	if (HeadsetMeshAsset.Succeeded()) { LControllerMesh->SetStaticMesh(LControllerMeshAsset.Object); }
+	if (HeadsetMaterialAsset.Succeeded()) { LControllerMesh->SetMaterial(0, LControllerMaterialAsset.Object); }
+
+	// Create Static mesh for right controller
+	UStaticMeshComponent* RControllerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RControllerMesh"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> RControllerMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> RControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+	if (HeadsetMeshAsset.Succeeded()) { RControllerMesh->SetStaticMesh(RControllerMeshAsset.Object); }
+	if (HeadsetMaterialAsset.Succeeded()) { RControllerMesh->SetMaterial(0, RControllerMaterialAsset.Object); }
+
+
+	// Attach visual meshes to components
+	HeadsetMesh->SetupAttachment(Headset); 
+	LControllerMesh->SetupAttachment(LeftControllerComponent);
+	RControllerMesh->SetupAttachment(RightControllerComponent);
 }
 
 void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)

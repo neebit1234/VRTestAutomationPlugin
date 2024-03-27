@@ -20,6 +20,9 @@ public:
 	AVRTestWaypoint();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
+	USceneComponent* Root;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
 	USceneComponent* Headset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
