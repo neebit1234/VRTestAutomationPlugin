@@ -27,8 +27,8 @@ AVRTestWaypoint::AVRTestWaypoint()
 	RightControllerComponent->AttachToComponent(Headset, FAttachmentTransformRules::KeepRelativeTransform);
 
 	// Create Static mesh for headset
-	UStaticMeshComponent* HeadsetMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeadsetCube"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadsetMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
+	UStaticMeshComponent* HeadsetMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeadsetMesh"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadsetMeshAsset(TEXT("/VRTestAutomationPlugin/Meshes/rift_sf.rift_sf"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> HeadsetMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
 	if (HeadsetMeshAsset.Succeeded()) { HeadsetMesh->SetStaticMesh(HeadsetMeshAsset.Object); }
 	if (HeadsetMaterialAsset.Succeeded()) { HeadsetMesh->SetMaterial(0, HeadsetMaterialAsset.Object); }
@@ -46,7 +46,6 @@ AVRTestWaypoint::AVRTestWaypoint()
 	static ConstructorHelpers::FObjectFinder<UMaterial> RControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
 	if (HeadsetMeshAsset.Succeeded()) { RControllerMesh->SetStaticMesh(RControllerMeshAsset.Object); }
 	if (HeadsetMaterialAsset.Succeeded()) { RControllerMesh->SetMaterial(0, RControllerMaterialAsset.Object); }
-
 
 	// Attach visual meshes to components
 	HeadsetMesh->SetupAttachment(Headset); 
