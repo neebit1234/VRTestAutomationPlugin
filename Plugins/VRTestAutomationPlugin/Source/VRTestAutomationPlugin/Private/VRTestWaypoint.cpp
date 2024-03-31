@@ -63,7 +63,7 @@ void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
 		//UE_LOG(LogTemp, Warning, TEXT("Your message goes here"));
 
 		// put pawn in waypoint position
-		VRPawn->TeleportTo(Headset->GetComponentLocation(), FRotator(0, 0, 0));
+		VRPawn->TeleportTo(Headset->GetComponentLocation(), Headset->GetComponentRotation());
 		//VRPawn->GetComponentByClass ->TeleportTo(HeadsetPosition, FRotator(0, 0, 0));
 	}
 }
