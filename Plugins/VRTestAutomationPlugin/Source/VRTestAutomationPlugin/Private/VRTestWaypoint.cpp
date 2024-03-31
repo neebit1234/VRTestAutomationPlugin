@@ -29,23 +29,23 @@ AVRTestWaypoint::AVRTestWaypoint()
 	// Create Static mesh for headset
 	UStaticMeshComponent* HeadsetMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HeadsetMesh"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> HeadsetMeshAsset(TEXT("/VRTestAutomationPlugin/Meshes/rift_sf.rift_sf"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> HeadsetMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+	//static ConstructorHelpers::FObjectFinder<UMaterial> HeadsetMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
 	if (HeadsetMeshAsset.Succeeded()) { HeadsetMesh->SetStaticMesh(HeadsetMeshAsset.Object); }
-	if (HeadsetMaterialAsset.Succeeded()) { HeadsetMesh->SetMaterial(0, HeadsetMaterialAsset.Object); }
+	//if (HeadsetMaterialAsset.Succeeded()) { HeadsetMesh->SetMaterial(0, HeadsetMaterialAsset.Object); }
 
-	// Create Static mesh for left controller
+	// Create Static mesh for left controller (using a right controller mesh as it just represent to controller location)
 	UStaticMeshComponent* LControllerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LControllerMesh"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> LControllerMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> LControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> LControllerMeshAsset(TEXT("/VRTestAutomationPlugin/Meshes/Right_Controller.Right_Controller"));
+	//static ConstructorHelpers::FObjectFinder<UMaterial> LControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
 	if (HeadsetMeshAsset.Succeeded()) { LControllerMesh->SetStaticMesh(LControllerMeshAsset.Object); }
-	if (HeadsetMaterialAsset.Succeeded()) { LControllerMesh->SetMaterial(0, LControllerMaterialAsset.Object); }
+	//if (HeadsetMaterialAsset.Succeeded()) { LControllerMesh->SetMaterial(0, LControllerMaterialAsset.Object); }
 
 	// Create Static mesh for right controller
 	UStaticMeshComponent* RControllerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RControllerMesh"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> RControllerMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
-	static ConstructorHelpers::FObjectFinder<UMaterial> RControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> RControllerMeshAsset(TEXT("/VRTestAutomationPlugin/Meshes/Right_Controller.Right_Controller"));
+	//static ConstructorHelpers::FObjectFinder<UMaterial> RControllerMaterialAsset(TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
 	if (HeadsetMeshAsset.Succeeded()) { RControllerMesh->SetStaticMesh(RControllerMeshAsset.Object); }
-	if (HeadsetMaterialAsset.Succeeded()) { RControllerMesh->SetMaterial(0, RControllerMaterialAsset.Object); }
+	//if (HeadsetMaterialAsset.Succeeded()) { RControllerMesh->SetMaterial(0, RControllerMaterialAsset.Object); }
 
 	// Attach visual meshes to components
 	HeadsetMesh->SetupAttachment(Headset); 
