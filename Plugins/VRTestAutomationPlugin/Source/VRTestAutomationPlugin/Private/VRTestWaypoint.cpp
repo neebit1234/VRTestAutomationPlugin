@@ -47,28 +47,24 @@ AVRTestWaypoint::AVRTestWaypoint()
 	if (HeadsetMeshAsset.Succeeded()) { RControllerMesh->SetStaticMesh(RControllerMeshAsset.Object); }
 	//if (HeadsetMaterialAsset.Succeeded()) { RControllerMesh->SetMaterial(0, RControllerMaterialAsset.Object); }
 
+	// Remove collision on waypoints
+	HeadsetMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	LControllerMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	RControllerMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
 	// Attach visual meshes to components
 	HeadsetMesh->SetupAttachment(Headset); 
 	LControllerMesh->SetupAttachment(LeftControllerComponent);
 	RControllerMesh->SetupAttachment(RightControllerComponent);
-
-	// Make waypoints invisible whilst game runs
-	Headset->SetHiddenInGame(true);
 }
 
 void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
 {
 	if (VRPawn)
 	{
-		/*UMotionControllerComponent* LeftController = VRPawn->GetComponentByClass<UMotionControllerComponent>();
-		UMotionControllerComponent* RightController = ;*/
-		//VRPawn->GetComponents();
-		//UE_LOG(LogTemp, Warning, TEXT("Your message goes here"));
-
 		// put pawn in waypoint position
 		VRPawn->TeleportTo(Headset->GetComponentLocation(), Headset->GetComponentRotation());
-		//VRPawn->GetComponentByClass ->TeleportTo(HeadsetPosition, FRotator(0, 0, 0));
-		
+
 		//Get motion controller components
 		TArray<USceneComponent*> PawnComponents;
 		VRPawn->GetComponents(PawnComponents);
@@ -80,12 +76,11 @@ void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
 			if (MotionControllerComp) {
 				// Check left controller
 				if (MotionControllerComp->MotionSource == FName("Left")) {
-					UE_LOG(LogTemp, Warning, TEXT("Found Left controller"));
 					MotionControllerComp->SetWorldLocationAndRotation(LeftControllerComponent->GetComponentLocation(),
 						LeftControllerComponent->GetComponentRotation());
 				}
+				// Check right controller
 				else if (MotionControllerComp->MotionSource == FName("Right")) {
-					UE_LOG(LogTemp, Warning, TEXT("Found Right controller"));
 					MotionControllerComp->SetWorldLocationAndRotation(RightControllerComponent->GetComponentLocation(),
 						RightControllerComponent->GetComponentRotation());
 				}
