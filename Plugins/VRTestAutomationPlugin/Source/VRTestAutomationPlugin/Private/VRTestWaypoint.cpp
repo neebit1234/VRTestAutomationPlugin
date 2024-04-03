@@ -51,6 +51,9 @@ AVRTestWaypoint::AVRTestWaypoint()
 	HeadsetMesh->SetupAttachment(Headset); 
 	LControllerMesh->SetupAttachment(LeftControllerComponent);
 	RControllerMesh->SetupAttachment(RightControllerComponent);
+
+	// Make waypoints invisible whilst game runs
+	Headset->SetHiddenInGame(true);
 }
 
 void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
@@ -65,7 +68,34 @@ void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
 		// put pawn in waypoint position
 		VRPawn->TeleportTo(Headset->GetComponentLocation(), Headset->GetComponentRotation());
 		//VRPawn->GetComponentByClass ->TeleportTo(HeadsetPosition, FRotator(0, 0, 0));
+		
+		//Get motion controller components
+		TArray<USceneComponent*> PawnComponents;
+		VRPawn->GetComponents(PawnComponents);
+
+		for (USceneComponent* VRPawnComp : PawnComponents) {
+			// Attempt to cast componente to UMotionControllerComponent
+			UMotionControllerComponent* MotionControllerComp = Cast<UMotionControllerComponent>(VRPawnComp);
+
+			if (MotionControllerComp) {
+				// Check left controller
+				if (MotionControllerComp->MotionSource == FName("Left")) {
+					UE_LOG(LogTemp, Warning, TEXT("Found Left controller"));
+					MotionControllerComp->SetWorldLocationAndRotation(LeftControllerComponent->GetComponentLocation(),
+						LeftControllerComponent->GetComponentRotation());
+				}
+				else if (MotionControllerComp->MotionSource == FName("Right")) {
+					UE_LOG(LogTemp, Warning, TEXT("Found Right controller"));
+					MotionControllerComp->SetWorldLocationAndRotation(RightControllerComponent->GetComponentLocation(),
+						RightControllerComponent->GetComponentRotation());
+				}
+				else {
+					UE_LOG(LogTemp, Warning, TEXT("Controller finding fail"));
+				}
+			}
+		}
 	}
+
 }
 
 // Called when the game starts or when spawned
