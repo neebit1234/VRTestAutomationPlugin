@@ -10,13 +10,9 @@ AVRTestWaypoint::AVRTestWaypoint()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Create a root component for in world placement
-	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	RootComponent = Root;
-
-	// Create headset as component of root
+	// Create headset as the root component
 	Headset = CreateDefaultSubobject<USceneComponent>(TEXT("Headset"));
-	Headset->AttachToComponent(Root, FAttachmentTransformRules::KeepRelativeTransform);
+	Headset->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	// Create the motion controller components
 	LeftControllerComponent = CreateDefaultSubobject<USceneComponent>(TEXT("LeftControllerComponent"));
