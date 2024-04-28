@@ -62,11 +62,21 @@ void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
 		VRPawn->TeleportTo(Headset->GetComponentLocation(), Headset->GetComponentRotation());
 
 		//Get motion controller components
+		TArray<AActor*> PawnActors;
+		VRPawn->GetAttachedActors(PawnActors);
+		PawnActors.Add(VRPawn);
 		TArray<USceneComponent*> PawnComponents;
-		VRPawn->GetComponents(PawnComponents);
+		// Checking componets attached to pawn in search of motion controllers
+		for (AActor* actor : PawnActors)
+		{
+			TArray<USceneComponent*> TempComponents;
+			actor->GetComponents(TempComponents);
+			PawnComponents.Append(TempComponents);
+		}
 
+		//Setups where controller components are children of the pawn
 		for (USceneComponent* VRPawnComp : PawnComponents) {
-			// Attempt to cast componente to UMotionControllerComponent
+			// Attempt to cast component to UMotionControllerComponent
 			UMotionControllerComponent* MotionControllerComp = Cast<UMotionControllerComponent>(VRPawnComp);
 
 			if (MotionControllerComp) {
@@ -80,8 +90,10 @@ void AVRTestWaypoint::ApplyWaypointToVRPawn(APawn* VRPawn)
 					MotionControllerComp->SetWorldLocationAndRotation(RightControllerComponent->GetComponentLocation(),
 						RightControllerComponent->GetComponentRotation());
 				}
-				else {
-					UE_LOG(LogTemp, Warning, TEXT("Controller finding fail"));
+				else { //default
+					UE_LOG(LogTemp, Warning, TEXT("Controller motion source finding fail - Default to Right"));
+					MotionControllerComp->SetWorldLocationAndRotation(RightControllerComponent->GetComponentLocation(),
+						RightControllerComponent->GetComponentRotation());
 				}
 			}
 		}
