@@ -19,16 +19,13 @@ public:
 	// Sets default values for this actor's properties
 	AVRTestWaypoint();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
-	USceneComponent* Root;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
+	UPROPERTY(BlueprintReadWrite, Category = "VR Waypoint")
 	USceneComponent* Headset;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
+	UPROPERTY(BlueprintReadWrite, Category = "VR Waypoint")
 	USceneComponent* LeftControllerComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VR Waypoint")
+	UPROPERTY(BlueprintReadWrite, Category = "VR Waypoint")
 	USceneComponent* RightControllerComponent;
 
 	UFUNCTION(BlueprintCallable, Category = "VR Waypoint")
