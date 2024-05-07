@@ -24,6 +24,8 @@ Waypoints can also be reused as blueprints. This allows multiple tests needing t
 1. Generate visual studio project files.
 1. Build in Visual Studio.
 1. Start the Unreal Editor.
+
+https://github.com/neebit1234/VRTestAutomationPlugin
  
 "Oculus Rift" (https://skfb.ly/6nzBE) by Eternal Realm is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
